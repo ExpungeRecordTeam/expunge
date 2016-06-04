@@ -55,8 +55,7 @@ gulp.task('images', function () {
 gulp.task('copy', function () {
   return gulp.src([
     'app/*',
-    '!app/*.html',
-    'node_modules/apache-server-configs/dist/.htaccess'
+    '!app/*.html'
   ], {
     dot: true
   }).pipe(gulp.dest('dist'))
@@ -68,6 +67,13 @@ gulp.task('fonts', function () {
   return gulp.src(['app/fonts/**'])
     .pipe(gulp.dest('dist/fonts'))
     .pipe($.size({title: 'fonts'}));
+});
+
+// Copy web js to dist
+gulp.task('js', function () {
+  return gulp.src(['app/scripts/**'])
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe($.size({title: 'scripts'}));
 });
 
 // Compile and automatically prefix stylesheets
@@ -166,7 +172,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['html', 'images', 'fonts', 'copy'], cb);
+  runSequence('styles', 'js', ['html', 'images', 'fonts', 'copy'], cb);
 });
 
 // Run PageSpeed Insights
