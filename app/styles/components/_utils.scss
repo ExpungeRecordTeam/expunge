@@ -330,7 +330,7 @@
   @mixin numbered-list() {
     &::before {
       counter-increment: list;
-      content: '0' counter(list);
+      content: counter(list);
       color: inherit;
       font-weight: 400;
       display: inline-block;
