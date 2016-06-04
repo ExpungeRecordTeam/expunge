@@ -1,4 +1,5 @@
-script: npm run publish
 language: node_js
 node_js:
-  - "4.4.1"
+- 4.4.1
+script:
+- npm run publish
