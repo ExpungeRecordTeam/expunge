@@ -26,6 +26,7 @@ ol {
 .medium,
 h4 {
   @include type--medium;
+  font-weight: bold;
 }
 
 .large,
