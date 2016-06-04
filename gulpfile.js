@@ -40,15 +40,6 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
-// Lint JavaScript
-gulp.task('jshint', function () {
-  return gulp.src(['app/scripts/**/*.js', '!app/scripts/**/*.min.js'])
-    .pipe(reload({stream: true, once: true}))
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
-});
-
 // Optimize images
 gulp.task('images', function () {
   return gulp.src('app/images/**/*')
@@ -156,7 +147,7 @@ gulp.task('serve', ['styles'], function () {
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/scripts/**/*.js'], ['jshint']);
+  gulp.watch(['app/scripts/**/*.js'], ['js']);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -175,7 +166,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy'], cb);
+  runSequence('styles', ['html', 'images', 'fonts', 'copy'], cb);
 });
 
 // Run PageSpeed Insights
