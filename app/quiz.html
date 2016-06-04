@@ -1,38 +1,47 @@
 <html>
 <head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-<link href="styles/survey.css" type="text/css" rel="stylesheet" />
-<script src="scripts/survey.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <link href="styles/survey.css" type="text/css" rel="stylesheet" />
+  <script src="scripts/survey.min.js"></script>
 </head>
 <body>
+
 <div id="surveyContainer"></div>
+<div id="surveyResponse"></div>
+
 <script>
+
+var expungedoc = "http://texaslawhelp.org/files/685E99A9-A3EB-6584-CA74-137E0474AE2C/attachments/86CCFF45-FEA3-4DC4-BD7B-6F4590CE5352/expunction_kit_final.pdf";
+
 var surveyJSON = {
-  title: "Tell us, what technologies do you use?",
+  title: "Please answer the following eligibility questions:",
   pages: [
 
       { name:"page1", questions: [
-      { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Using",title: "Have you ever been charged with a crime?" },
-      { type: "checkbox", choices: ["Tried and not Guilty?", "Misdemeanor Arrest but Never Charged"], hasOther:true, isRequired: true, name: "step1", title: "What type of Charge?", 
-visible: false } ]},
-
-      { name: "page2", questions: [ { type: "radiogroup", choices: ["Yes","No"],isRequired: true, name: "mvvmUsing", title: "Do you use any MVVM framework?" },
-      { type: "checkbox", choices: [ "AngularJS", "KnockoutJS", "React" ], hasOther: true, isRequired: true, name: "mvvm", title: "What MVVV framework do you use?", visible: false } ] 
-},
-
-      { name: "page3",questions: [ { type: "comment", name: "about", title: "Please tell us about your main requirements for Survey library" } ] } ],
-
+        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question", title: "Where you found not guilty, charged but never convicted, or your charge was dismissed?" },
+        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1SecondQuestion", title: "Were you never tried or the prosecutor recommends expunction?", visible: false }
+      ] }
+  ],
   triggers: [
-      { type: "visible", operator: "equal", value: "Yes", name:"step1Using", questions: ["step1"]},
-      { type: "visible", operator: "equal", value: "Yes", name: "mvvmUsing", questions: ["mvvm"]}
+      { type: "visible", operator: "equal", value: "No", name:"step1Question", questions: ["step1SecondQuestion"]},
+      { type: "visible", operator: "equal", value: "Yes", name: "step2Question", questions: ["step1Question"]},
+      { type: "visible", operator: "equal", value: "Yes", name: "step2Question", questions: ["step1SecondQuestion"]}
   ]
 }
 
-
 var survey = new Survey.Survey(surveyJSON, "surveyContainer");
-//Use onComplete event to save the data
-//survey.onComplete.add(sendDataToServer);
+
+survey.onComplete.add(function (s) {
+
+  if (s.data.step1Question == 'Yes' || s.data.step1SecondQuestion == 'Yes') {
+    $('#surveyResponse').append('<a href="' + expungedoc + '">Click Here for your Travis County Expunge Document</a>');
+  }
+
+});
+
+
+
 </script>
 </body>
 </html>
-
