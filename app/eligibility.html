@@ -2,38 +2,42 @@
     <head>
         <link href="styles/survey.css" type="text/css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-        <script src="expunge/scripts/main.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="scripts/main.js"></script>
     </head>
 <body>
-    <main></main>
+
     <div id="surveyContainer"></div>
+    <div id="surveyResponse"></div>
+    
     <script>
+    
     var surveyJSON = {
       title: "Tell us, what technologies do you use?",
       pages: [
 
           { name:"page1", questions: [
-          { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Using",title: "Have you ever been charged with a crime?" },
-          { type: "checkbox", choices: ["Tried and not Guilty?", "Misdemeanor Arrest but Never Charged"], hasOther:true, isRequired: true, name: "step1", title: "What type of Charge?",
-    visible: false } ]},
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question1",title: "Was the county of record Travis County Texas?" },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question2",title: "Were you older than 18 years at the time of the incident?", visible: false },
+	 { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question3",title: "Were you released without a charge?", visible: false },
+          ] }
 
-          { name: "page2", questions: [ { type: "radiogroup", choices: ["Yes","No"],isRequired: true, name: "mvvmUsing", title: "Do you use any MVVM framework?" },
-          { type: "checkbox", choices: [ "AngularJS", "KnockoutJS", "React" ], hasOther: true, isRequired: true, name: "mvvm", title: "What MVVV framework do you use?", visible: false } ]
-    },
-
-          { name: "page3",questions: [ { type: "comment", name: "about", title: "Please tell us about your main requirements for Survey library" } ] } ],
+      ],
 
       triggers: [
-          { type: "visible", operator: "equal", value: "Yes", name:"step1Using", questions: ["step1"]},
-          { type: "visible", operator: "equal", value: "Yes", name: "mvvmUsing", questions: ["mvvm"]}
+          { type: "visible", operator: "equal", value: "Yes", name:"step1Question1", questions: ["step1Question2"]},
+          { type: "visible", operator: "equal", value: "Yes", name: "step1Question2", questions: ["step1Question3"]}
       ]
     }
 
-
     var survey = new Survey.Survey(surveyJSON, "surveyContainer");
-    //Use onComplete event to save the data
-    //survey.onComplete.add(sendDataToServer);
+
+    survey.onComplete.add(function (s) {
+    
+      if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-1.html'; }
+      
+    });
+
     </script>
 </body>
 </html>
-
