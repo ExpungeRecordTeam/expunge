@@ -1,4 +1,7 @@
 script: npm run publish
 language: node_js
 node_js:
-  - "4.4.1"
+- 4.4.1
+env:
+  global:
+    secure: PpP3G24TC/TDUo+3iwsdm+dVB5sPN+zch+RNHsxEHvVxebxV5YvBOxLVFNoib0rkiVcd2VhU0cRIzSEDw6IGoQ9lzLlvvmAsQdc4w49g2xZDjkcY3NgYNedOTzh6aSCutFAsrAL1JuBbqd37khguSOvKim3kRc6ihugPRQVl12HRUyzbw7iPHL7sji3sbKevW9jJ49PSImv8lj/wW5lsrnNQyxayY5USUmPEUe3OhjtPrn7+IBjpaVCZucHPu9etlwMJ0SanJvgAs3nNvmEhkKLrg3sD/p1Vp4JEgMVctF/JJoyCMDILXDAlYOCBueoqTSkaT1FeXgYNXqsyITM697YzWacl3p7FQnvtQq5btEpR1x2nVraPyyRQoP+D9+OV+Sj3hoQIq+ZRR41uH0X7IGM9CznC9u09Vt+0kmtEJKv4mzQrmL/lQ2l5QTVQ1+W6wnoNvwE1aHfiEPI4OB29PggAOMHGU1OC/FnYnm+4NX9UdF76fJWw8k9fehD/wqQ/auo5oqnlgEf4n8wWSagKk1maWz2Tbus0Ep8/pGh0H8y25ezClBHeivaUyTQ/T4M36SKWIEuoyrLbXjzWUT8wBAvFk2/XV6V7OZzkvnFttXt6qeyl8KxsaCpnQUzIU/VM8Gux6IoGnLIqAB7jk2paXOzDPV6PrlKUkQ4oVSnvnS4=
