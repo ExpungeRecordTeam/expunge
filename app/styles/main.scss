@@ -380,12 +380,19 @@ main {
   src: local('Roboto Condensed Bold Italic'), local('RobotoCondensed-BoldItalic'), url(/fonts/RobotoCondensed-BoldItalic.eot) format('embedded-opentype'), url(/fonts/RobotoCondensed-BoldItalic.woff) format('woff');
 }
 
-.faq-question {
+.survey-question {
   font-weight: bold;
+  font-size: 24px;
 }
 
-.faq-answer {
-  padding-top: 0.75em;
+.survey-answer {
+  font-weight: normal;
+  font-size: 50px;
+}
+
+.faq-question {
+  font-weight: bold;
+  style="font-size:150%"
 }
 
 .steps h4 {
