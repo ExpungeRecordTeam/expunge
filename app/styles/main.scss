@@ -432,4 +432,12 @@ main {
   right: 0;
   position: fixed;
   z-index: 5;
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .beta-banner {
+    width: 60px;
+    height: 60px;
+  }
 }
