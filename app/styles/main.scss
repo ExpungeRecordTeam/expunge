@@ -418,3 +418,11 @@ main {
     color: white;
   }
 }
+
+@media only screen and (max-width: 860px) {
+  .step {
+    width: 100%;
+    height: auto;
+    padding-bottom: 1em;
+  }
+}
