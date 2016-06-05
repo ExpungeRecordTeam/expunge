@@ -35,7 +35,7 @@ body.open {
 }
 
 header[role="logo"] {
-     background-image: url(../images/legal.jpg);
+     background-image: url(/images/legal.jpg);
      background-repeat: no-repeat;
      background-position:right;
      margin-right:1em;
@@ -47,7 +47,7 @@ header[role="logo"] {
   position: fixed;
   top: 0;
   left: 0;
-  background-image: url(../images/legal.jpg);
+  background-image: url(/images/legal.jpg);
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 100%;
