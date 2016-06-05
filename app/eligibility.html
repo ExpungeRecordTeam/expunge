@@ -5,6 +5,7 @@
         <meta name="theme-color" content="#3372DF">
         <link rel="stylesheet" href="styles/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Expunge Criminal Record</title>
         <!-- Add to homescreen -->
         <link rel="manifest" href="manifest.json">
         <!-- Fallback to homescreen for Chrome <39 on Android -->
@@ -23,7 +24,7 @@
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     </head>
 <body>
-    
+
     <header class="app-bar promote-layer">
         <div class="app-bar-container">
             <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
@@ -121,9 +122,9 @@
 
 				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
 				else {
-				
+
 					document.location.href='eligibility-possible.html';
-				
+
 				}
 
 			});
