@@ -10,7 +10,7 @@
         <!-- Fallback to homescreen for Chrome <39 on Android -->
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="application-name" content="Expunge Criminal Record - Travis County, TX">
-        <link href="/favicon.ico" rel="icon" type="image/ico">
+        <link rel="icon" sizes="32x32" href="images/favicon.ico">
         <!-- Add to homescreen for Safari on iOS -->
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -21,14 +21,13 @@
         <meta name="msapplication-TileColor" content="#3372DF">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script src="scripts/main.js"></script>
     </head>
 <body>
-    <img class="beta-banner" src="/images/beta_banner.png"/>
+    
     <header class="app-bar promote-layer">
         <div class="app-bar-container">
             <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
-            <h1 class="logo">Expunge Criminal Record</h1>
+            <h1 class="logo">Expunge Criminal Record <br><strong>Eligibility</strong></h1>
         </div>
     </header>
     <nav class="navdrawer-container promote-layer">
@@ -44,6 +43,7 @@
     <main>
       <div class="survey-question" id="surveyContainer"></div>
     </main>
+    <script src="/scripts/main.js"></script>
     <script>
 
     var surveyJSON = {
@@ -65,6 +65,7 @@
     }
 
     var felonyJSON = {
+      title: " ",
       pages: [
 
           { name:"page1", questions: [
@@ -80,6 +81,7 @@
     }
 
     var misJSON = {
+      title: " ",
       pages: [
 
           { name:"page1", questions: [
@@ -99,8 +101,9 @@
     survey.onComplete.add(function (s) {
 
       if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
-      else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under17.html'; }
-      else {
+     else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under17.html'; }
+     else if (s.data.step1Question1 == 'No' || s.data.step1Question2 == 'No') {  document.location.href='eligibility-na.html'; }
+     else {
 	delete survey;
 
 	var survey2 = new Survey.Survey(felonyJSON, "surveyContainer");
@@ -118,9 +121,9 @@
 
 				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
 				else {
-
+				
 					document.location.href='eligibility-possible.html';
-
+				
 				}
 
 			});
