@@ -30,12 +30,70 @@
       ]
     }
 
+    var felonyJSON = {
+      title: "Tell us, what technologies do you use?",
+      pages: [
+
+          { name:"page1", questions: [
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step2Question1",title: "Was the incident a felony?" },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step2Question2",title: "Has it been five years from the date of your order of dismissal?", visible: false }
+          ] }
+
+      ],
+
+      triggers: [
+          { type: "visible", operator: "equal", value: "Yes", name:"step2Question1", questions: ["step2Question2"]}
+      ]
+    }
+
+    var misJSON = {
+      title: "Tell us, what technologies do you use?",
+      pages: [
+
+          { name:"page1", questions: [
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step3Question1",title: "Was the incident a misdemeanor?" },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step3Question2",title: "Has it been three years from the date of your order of dismissal?", visible: false }
+          ] }
+
+      ],
+
+      triggers: [
+          { type: "visible", operator: "equal", value: "Yes", name:"step3Question1", questions: ["step3Question2"]}
+      ]
+    }
+    
     var survey = new Survey.Survey(surveyJSON, "surveyContainer");
 
     survey.onComplete.add(function (s) {
-
-      if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-1.html'; }
-
+    
+      if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
+      else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under18.html'; }
+      else {
+	delete survey;
+	
+	var survey2 = new Survey.Survey(felonyJSON, "surveyContainer");
+	
+	survey2.onComplete.add(function (s) {
+	
+		 if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
+		 else  if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'No') {  document.location.href='eligibility-possible.html'; }
+		 else if (s.data.step2Question1 == 'No') {
+		 
+			delete survey2;
+			var survey3 = new Survey.Survey(misJSON, "surveyContainer");
+			
+			survey2.onComplete.add(function (s) {
+	
+				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-3.html'; }
+		 
+			});
+			
+		}
+	
+	});
+	
+      }
+      
     });
 
     </script>
