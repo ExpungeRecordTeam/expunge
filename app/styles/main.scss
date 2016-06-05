@@ -127,7 +127,7 @@ box-shadow: 0 10px 0 1px #FEFEFE, 0 16px 0 1px #FEFEFE, 0 22px 0 1px #FEFEFE;
 }
 
 .app-bar button:hover {
-  background-color: #575659;
+  background-color: #009688;
 }
 
 .app-bar button:focus {
@@ -233,7 +233,8 @@ main {
   outline: 0;
 }
 
-.navdrawer-container ul li a:active {
+.navdrawer-container ul li a:active,
+.navdrawer-container ul li a.active {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -385,4 +386,35 @@ main {
 
 .faq-answer {
   padding-top: 0.75em;
+}
+
+.steps h4 {
+  font-weight: bold;
+  padding-top: 1em;
+}
+
+.steps {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.step {
+  background-color: #009688;
+  box-sizing: border-box;
+  color: white;
+  display: inline-block;
+  padding: 0 1em;
+  width: 23%;
+  height: 360px;
+  margin: 0.25em;
+  vertical-align: top;
+  text-align: left;
+
+  p {
+    padding-top: 0.75em;
+  }
+
+  a {
+    color: white;
+  }
 }
