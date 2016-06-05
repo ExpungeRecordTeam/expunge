@@ -10,7 +10,7 @@
         <!-- Fallback to homescreen for Chrome <39 on Android -->
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="application-name" content="Expunge Criminal Record - Travis County, TX">
-        <link href="/favicon.ico" rel="icon" type="image/ico">
+        <link rel="icon" sizes="32x32" href="images/favicon.ico">
         <!-- Add to homescreen for Safari on iOS -->
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -21,14 +21,13 @@
         <meta name="msapplication-TileColor" content="#3372DF">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script src="scripts/main.js"></script>
     </head>
 <body>
-    <img class="beta-banner" src="/images/beta_banner.png"/>
+    
     <header class="app-bar promote-layer">
         <div class="app-bar-container">
             <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
-            <h1 class="logo">Expunge Criminal Record</h1>
+            <h1 class="logo">Expunge Criminal Record <br><strong>Eligibility</strong></h1>
         </div>
     </header>
     <nav class="navdrawer-container promote-layer">
@@ -44,6 +43,7 @@
     <main>
       <div class="survey-question" id="surveyContainer"></div>
     </main>
+    <script src="/scripts/main.js"></script>
     <script>
 
     var surveyJSON = {
