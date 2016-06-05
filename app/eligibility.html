@@ -25,8 +25,7 @@
     </head>
 <body>
 
-    <div id="surveyContainer"></div>
-    <div id="surveyResponse"></div>
+    <div class="survey-question" id="surveyContainer"></div>
     
     <script>
     
@@ -36,7 +35,7 @@
 
           { name:"page1", questions: [
             { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question1",title: "Was the county of record Travis County Texas?" },
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question2",title: "Were you older than 18 years at the time of the incident?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question2",title: "Were you older than 17 years at the time of the incident?", visible: false },
 	 { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question3",title: "Were you released without a charge?", visible: false },
           ] }
 
