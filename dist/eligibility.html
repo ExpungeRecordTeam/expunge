@@ -1,4 +1,4 @@
-<html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=theme-color content=#3372DF><link rel=stylesheet href=styles/main.css><meta name=viewport content="width=device-width, initial-scale=1"><link rel=manifest href=manifest.json><meta name=mobile-web-app-capable content=yes><meta name=application-name content="Expunge Criminal Record - Travis County, TX"><link rel=icon sizes=32x32 href=images/favicon.ico><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><meta name=apple-mobile-web-app-title content="Washoe County Travel Study"><link rel=apple-touch-icon href=images/touch/apple-touch-icon.png><meta name=msapplication-TileImage content=images/touch/ms-touch-icon-144x144-precomposed.png><meta name=msapplication-TileColor content=#3372DF><script src=https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js></script><script src=https://code.jquery.com/jquery-2.2.4.min.js></script><script src=scripts/main.js></script></head><body><header class="app-bar promote-layer"><div class=app-bar-container><button class=menu><img src=images/hamburger.svg alt=Menu></button><h1 class=logo>Expunge Criminal Record</h1></div></header><nav class="navdrawer-container promote-layer"><h4></h4><ul><li><a href=index.html><strong>Home</strong></a></li><li><a href=faq.html><strong>FAQ</strong></a></li><li><a href=eligibility.html class=active><strong>Am I Eligible?</strong></a></li><li><a href=forms.html><strong>Forms & How to File</strong></a></li><li><a href=about.html><strong>About the Hearing</strong></a></li></ul></nav><main><div id=surveyContainer></div><div id=surveyResponse></div></main><script>
+<html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=theme-color content=#3372DF><link rel=stylesheet href=styles/main.css><meta name=viewport content="width=device-width, initial-scale=1"><link rel=manifest href=manifest.json><meta name=mobile-web-app-capable content=yes><meta name=application-name content="Expunge Criminal Record - Travis County, TX"><link rel=icon sizes=32x32 href=images/favicon.ico><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><meta name=apple-mobile-web-app-title content="Washoe County Travel Study"><link rel=apple-touch-icon href=images/touch/apple-touch-icon.png><meta name=msapplication-TileImage content=images/touch/ms-touch-icon-144x144-precomposed.png><meta name=msapplication-TileColor content=#3372DF><script src=https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js></script><script src=https://code.jquery.com/jquery-2.2.4.min.js></script><script src=scripts/main.js></script></head><body><img class=beta-banner src=/images/beta_banner.png><header class="app-bar promote-layer"><div class=app-bar-container><button class=menu><img src=images/hamburger.svg alt=Menu></button><h1 class=logo>Expunge Criminal Record<br><strong>Eligibility</strong></h1></div></header><nav class="navdrawer-container promote-layer"><h4></h4><ul><li><a href=index.html><strong>Home</strong></a></li><li><a href=faq.html><strong>FAQ</strong></a></li><li><a href=eligibility.html class=active><strong>Am I Eligible?</strong></a></li><li><a href=forms.html><strong>Forms & How to File</strong></a></li><li><a href=about.html><strong>About the Hearing</strong></a></li></ul></nav><main><div class=survey-question id=surveyContainer></div></main><script>
 
     var surveyJSON = {
       title: "The following questions will help determine your eligibility:",
@@ -6,7 +6,7 @@
 
           { name:"page1", questions: [
             { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question1",title: "Was the county of record Travis County Texas?" },
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question2",title: "Were you older than 18 years at the time of the incident?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question2",title: "Were you older than 17 years at the time of the incident?", visible: false },
 	 { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question3",title: "Were you released without a charge?", visible: false },
           ] }
 
@@ -53,7 +53,7 @@
     survey.onComplete.add(function (s) {
 
       if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
-      else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under18.html'; }
+      else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under17.html'; }
       else {
 	delete survey;
 
@@ -70,7 +70,12 @@
 
 			survey2.onComplete.add(function (s) {
 
-				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-mis.html'; }
+				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
+				else {
+
+					document.location.href='eligibility-possible.html';
+
+				}
 
 			});
 
