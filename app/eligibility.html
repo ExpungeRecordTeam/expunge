@@ -99,6 +99,7 @@
     survey.onComplete.add(function (s) {
 
       if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
+      else if (s.data.step1Question1 == 'No' || s.data.step1Question2 == 'No') {  document.location.href='eligibility-na.html'; }
       else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under17.html'; }
       else {
 	delete survey;
@@ -118,9 +119,9 @@
 
 				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
 				else {
-
+				
 					document.location.href='eligibility-possible.html';
-
+				
 				}
 
 			});
