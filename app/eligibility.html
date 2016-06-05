@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link href="/expunge/styles/main.css" type="text/css" rel="stylesheet"/>
+        <link href="styles/survey.css" type="text/css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script src="scripts/main.js"></script>
@@ -9,9 +9,9 @@
 
     <div id="surveyContainer"></div>
     <div id="surveyResponse"></div>
-
+    
     <script>
-
+    
     var surveyJSON = {
       title: "Tell us, what technologies do you use?",
       pages: [
@@ -75,7 +75,7 @@
 	
 	survey2.onComplete.add(function (s) {
 	
-		 if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
+		 if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-nda.html'; }
 		 else  if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'No') {  document.location.href='eligibility-possible.html'; }
 		 else if (s.data.step2Question1 == 'No') {
 		 
