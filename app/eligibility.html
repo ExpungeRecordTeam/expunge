@@ -24,11 +24,28 @@
         <script src="scripts/main.js"></script>
     </head>
 <body>
-
-    <div class="survey-question" id="surveyContainer"></div>
     
+    <header class="app-bar promote-layer">
+        <div class="app-bar-container">
+            <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
+            <h1 class="logo">Expunge Criminal Record</h1>
+        </div>
+    </header>
+    <nav class="navdrawer-container promote-layer">
+        <h4></h4>
+        <ul>
+            <li><a href="index.html"><strong>Home</strong></a></li>
+            <li><a href="faq.html"><strong>FAQ</strong></a></li>
+            <li><a href="eligibility.html" class="active"><strong>Am I Eligible?</strong></a></li>
+            <li><a href="forms.html"><strong>Forms & How to File</strong></a></li>
+            <li><a href="about.html"><strong>About the Hearing</strong></a></li>
+        </ul>
+    </nav>
+    <main>
+      <div class="survey-question" id="surveyContainer"></div>
+    </main>
     <script>
-    
+
     var surveyJSON = {
       title: "The following questions will help determine your eligibility:",
       pages: [
@@ -76,39 +93,39 @@
           { type: "visible", operator: "equal", value: "Yes", name:"step3Question1", questions: ["step3Question2"]}
       ]
     }
-    
+
     var survey = new Survey.Survey(surveyJSON, "surveyContainer");
 
     survey.onComplete.add(function (s) {
-    
+
       if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
       else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under18.html'; }
       else {
 	delete survey;
-	
+
 	var survey2 = new Survey.Survey(felonyJSON, "surveyContainer");
-	
+
 	survey2.onComplete.add(function (s) {
-	
+
 		 if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-nda.html'; }
 		 else  if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'No') {  document.location.href='eligibility-possible.html'; }
 		 else if (s.data.step2Question1 == 'No') {
-		 
+
 			delete survey2;
 			var survey3 = new Survey.Survey(misJSON, "surveyContainer");
-			
+
 			survey2.onComplete.add(function (s) {
-	
+
 				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-mis.html'; }
-		 
+
 			});
-			
+
 		}
-	
+
 	});
-	
+
       }
-      
+
     });
 
     </script>
