@@ -1,6 +1,24 @@
 <html>
     <head>
-        <link href="styles/survey.css" type="text/css" rel="stylesheet"/>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="theme-color" content="#3372DF">
+        <link rel="stylesheet" href="styles/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Add to homescreen -->
+        <link rel="manifest" href="manifest.json">
+        <!-- Fallback to homescreen for Chrome <39 on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="application-name" content="Expunge Criminal Record - Travis County, TX">
+        <link rel="icon" sizes="32x32" href="images/favicon.ico">
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Washoe County Travel Study">
+        <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#3372DF">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script src="scripts/main.js"></script>
@@ -13,7 +31,7 @@
     <script>
     
     var surveyJSON = {
-      title: "Tell us, what technologies do you use?",
+      title: "The following questions will help determine your eligibility:",
       pages: [
 
           { name:"page1", questions: [
@@ -31,7 +49,6 @@
     }
 
     var felonyJSON = {
-      title: "Tell us, what technologies do you use?",
       pages: [
 
           { name:"page1", questions: [
@@ -47,7 +64,6 @@
     }
 
     var misJSON = {
-      title: "Tell us, what technologies do you use?",
       pages: [
 
           { name:"page1", questions: [
