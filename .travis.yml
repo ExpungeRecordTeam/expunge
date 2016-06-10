@@ -5,11 +5,13 @@ before_script:
 script: gulp
 
 after_script:
-  - ls
+  - ls ../
   - git config user.name "Travis CI"
   - git config user.email "$COMMIT_AUTHOR_EMAIL"
-  - git branch develop
-  - git checkout develop
+  - git clone "https://${GITHUB_API_KEY}@github.com/${TRAVIS_REPO_SLUG}.git" out
+  - cd  out
+  - git checkout gh-pages
+  - mv ../dist/* ./
   - git add -a
   - git commit -m "Deploy to GitHub Pages ${SHA}"
 #  - git push --force --quiet "https://${GITHUB_API_KEY}@github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages
