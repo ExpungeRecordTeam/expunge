@@ -3,12 +3,12 @@ before_script:
   - npm rebuild node-sass
 script: gulp
 after_script:
-  - git status
+  - ls
   - git config user.name "Travis CI"
   - git config user.email "$COMMIT_AUTHOR_EMAIL"
   - git branch develop
   - git checkout develop
-  - git add .
+  - git add -a
   - git commit -m "Deploy to GitHub Pages: ${SHA}"
   - git push --force --quiet "https://${GITHUB_API_KEY}@$github.com/${GITHUB_REPO}.git" develop
 env:
