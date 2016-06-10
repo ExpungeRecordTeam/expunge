@@ -6,7 +6,7 @@ script: gulp
 
 after_script:
   - git clone "https://${GITHUB_API_KEY}@github.com/${TRAVIS_REPO_SLUG}.git" out
-  - cd  out
+  - cd out
   - git config user.name "Travis CI"
   - git config user.email "$COMMIT_AUTHOR_EMAIL"
   - git checkout gh-pages
