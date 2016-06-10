@@ -9,7 +9,7 @@ after_script:
   - git branch develop
   - git checkout develop
   - git add -a
-  - git commit -m "Deploy to GitHub Pages: ${SHA}"
+  - git commit -m "Deploy to GitHub Pages ${SHA}"
   - git push --force --quiet "https://${GITHUB_API_KEY}@$github.com/${GITHUB_REPO}.git" develop
 env:
   global:
