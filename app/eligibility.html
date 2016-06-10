@@ -45,93 +45,71 @@
       <div class="survey-question" id="surveyContainer"></div>
     </main>
     <script src="/scripts/main.js"></script>
+    <script src="/scripts/survey.min.js"></script>
     <script>
+
+    var debug = false;
+
+    var redirectordebug = function(url) {
+
+      if (debug) { console.log(url); }
+      else { document.location.href=url; }
+
+    }
 
     var surveyJSON = {
       title: "The following questions will help determine your eligibility:",
       pages: [
 
-          { name:"page1", questions: [
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question1",title: "Was the county of record Travis County Texas?" },
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question2",title: "Were you older than 17 years at the time of the incident?", visible: false },
-	 { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step1Question3",title: "Were you released without a charge?", visible: false },
-          ] }
+        { name:"page1", questions: [
+            { type: "radiogroup", choices: [ "Before", "After" ], isRequired: true, name: "senatebillDate",title: "Did this incident happen before or after 9/1/2015?" },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "locationcounty",title: "Was this incident in Travis County?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "over17",title: "Were you 17 or older when this incident happened?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "releasedwithoutcharge",title: "Were you released without a charge?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "foundguilty",title: "Were you found guilty?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "dismissaloraquittal",title: "Did you receive a dismissal or an acquittal?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "otheropencases",title: "Do you have another open or pending criminal case against you?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "deferredadjudication",title: "Did you receive a deferred adjudication?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "morethanone",title: "Were you charged with more than one crime?", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "wascrime",title: "Was your crime Murder", visible: false },
+            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "orderofdismissal",title: "Do you have an 'order of dismissal and discharge'?", visible: false }
+           ]
+         }
 
       ],
 
       triggers: [
-          { type: "visible", operator: "equal", value: "Yes", name:"step1Question1", questions: ["step1Question2"]},
-          { type: "visible", operator: "equal", value: "Yes", name: "step1Question2", questions: ["step1Question3"]}
-      ]
-    }
-
-    var felonyJSON = {
-      title: " ",
-      pages: [
-
-          { name:"page1", questions: [
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step2Question1",title: "Was the incident a felony?" },
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step2Question2",title: "Has it been five years from the date of your order of dismissal?", visible: false }
-          ] }
-
-      ],
-
-      triggers: [
-          { type: "visible", operator: "equal", value: "Yes", name:"step2Question1", questions: ["step2Question2"]}
-      ]
-    }
-
-    var misJSON = {
-      title: " ",
-      pages: [
-
-          { name:"page1", questions: [
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step3Question1",title: "Was the incident a misdemeanor?" },
-            { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "step3Question2",title: "Has it been three years from the date of your order of dismissal?", visible: false }
-          ] }
-
-      ],
-
-      triggers: [
-          { type: "visible", operator: "equal", value: "Yes", name:"step3Question1", questions: ["step3Question2"]}
+        { type: "visible", operator: "equal", value: "Before", name:"senatebillDate", questions: ["locationcounty"]},
+        { type: "visible", operator: "equal", value: "Yes", name: "locationcounty", questions: ["over17"]},
+        { type: "visible", operator: "equal", value: "Yes", name: "over17", questions: ["releasedwithoutcharge"]},
+        { type: "visible", operator: "equal", value: "No", name: "releasedwithoutcharge", questions: ["foundguilty"]},
+        { type: "visible", operator: "equal", value: "No", name: "foundguilty", questions: ["dismissaloraquittal"]},
+        { type: "visible", operator: "equal", value: "No", name: "dismissaloraquittal", questions: ["otheropencases"]},
+        { type: "visible", operator: "equal", value: "No", name: "otheropencases", questions: ["deferredadjudication"]},
+        { type: "visible", operator: "equal", value: "Yes", name: "deferredadjudication", questions: ["morethanone"]},
+        { type: "visible", operator: "equal", value: "No", name: "morethanone", questions: ["wascrime"]},
+        { type: "visible", operator: "equal", value: "No", name: "wascrime", questions: ["orderofdismissal"]}
       ]
     }
 
     var survey = new Survey.Survey(surveyJSON, "surveyContainer");
 
-    survey.onComplete.add(function (s) {
+    $( "input" ).change(function() {
 
-      if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'Yes' && s.data.step1Question3 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
-     else if (s.data.step1Question1 == 'Yes' && s.data.step1Question2 == 'No') {  document.location.href='eligibility-under17.html'; }
-     else if (s.data.step1Question1 == 'No' || s.data.step1Question2 == 'No') {  document.location.href='eligibility-na.html'; }
-     else {
-	delete survey;
+      if ($(this).val()) {
 
-	var survey2 = new Survey.Survey(felonyJSON, "surveyContainer");
-
-	survey2.onComplete.add(function (s) {
-
-		 if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-nda.html'; }
-		 else  if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'No') {  document.location.href='eligibility-possible.html'; }
-		 else if (s.data.step2Question1 == 'No') {
-
-			delete survey2;
-			var survey3 = new Survey.Survey(misJSON, "surveyContainer");
-
-			survey2.onComplete.add(function (s) {
-
-				if (s.data.step2Question1 == 'Yes' && s.data.step2Question2 == 'Yes') {  document.location.href='eligibility-expunge.html'; }
-				else {
-
-					document.location.href='eligibility-possible.html';
-
-				}
-
-			});
-
-		}
-
-	});
+        if ($(this).attr("name") == 'senatebillDate' && $(this).val() == 'After') { redirectordebug('eligibility-sb.html'); }
+        if ($(this).attr("name") == 'locationcounty' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
+        if ($(this).attr("name") == 'over17' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
+        if ($(this).attr("name") == 'releasedwithoutcharge' && $(this).val() == 'Yes') { redirectordebug('eligibility-expunge.html'); }
+        if ($(this).attr("name") == 'foundguilty' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
+        if ($(this).attr("name") == 'dismissaloraquittal' && $(this).val() == 'Yes') { redirectordebug('eligibility-expunge.html'); }
+        if ($(this).attr("name") == 'otheropencases' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
+        if ($(this).attr("name") == 'deferredadjudication' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
+        if ($(this).attr("name") == 'morethanone' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
+        if ($(this).attr("name") == 'wascrime' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
+        if ($(this).attr("name") == 'orderofdismissal' && $(this).val() == 'Yes') { redirectordebug('eligibility-nda.html'); }
+        if ($(this).attr("name") == 'orderofdismissal' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
 
       }
 
