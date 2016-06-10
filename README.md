@@ -1,1 +1,0 @@
-A project dedicated to giving people access to accurate, concise information to expunge criminal records.
