@@ -1,7 +1,9 @@
 before_script:
   - npm install -g gulp
   - npm rebuild node-sass
+
 script: gulp
+
 after_script:
   - ls
   - git config user.name "Travis CI"
@@ -11,6 +13,7 @@ after_script:
   - git add -a
   - git commit -m "Deploy to GitHub Pages ${SHA}"
   - git push --force --quiet "https://${GITHUB_API_KEY}@github.com/${TRAVIS_REPO_SLUG}.git" gh-pages
+
 env:
   global:
     secure: "0LfIHm0paxGWjPOsITcmK0jRxoZ/4dsduA+PR5ObDnFhttZo0Gq3iS4d0D2aEY5oYmhT48UW/I0PkGdV9q/kJkQSxbU9FfWxq9LD0iPHXi11VkCMoRat2Oigu9j3IZc9Rbxau9gs9txZuwDE1JtYs2wRev1OBJSSPO0pRdAnNi+Sjq6s0jDSBl567TbgpWhcnqwLi9Db8t9kA2y2gV9r8j+w8Ju2xjmSskJvhoHLBK+C9F7bue7sFmI1TD7GD7THY7goVl+BOyoF4u1pd04/a/buDT2QQIwftSIHHXAvrCkDAwrCyinyF8AOXdRiHxmufXuZBEE/smKagkz5dH1pquvi/Fybxgxrs7ytjtWVJpSUYeWDsYK09RNz+6HOw4vrOYL5fp/wKQtd+Gbn3JMYhJLYA7bkGWf82PyixAlo5C5LwB24V2BICkM+j/na6gsDUW3n5T2qQDs8pGZmPSRaHsjO/PaI/Kho8Gteotj+F/zJkxPi6sWksP7EeTLIDcpjwQ7CHKyPyemFtwW1Y/bBc7/mHEpiR+fVCuRzwu9wm7JberpPioZR71JQQW++JvqgJvQg+Uroym8hoBkeRxiAHrKkFFPHZJmNjtgPNMZv0SrY2/JxyownE4JLOkFpjMYvvDUhNzy+/sf4qURgBYs1/aIX8c0eFacFvupa1Rks1IE="
