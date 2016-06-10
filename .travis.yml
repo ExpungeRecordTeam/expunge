@@ -11,8 +11,8 @@ after_script:
   - git clone "https://${GITHUB_API_KEY}@github.com/${TRAVIS_REPO_SLUG}.git" out
   - cd  out
   - git checkout gh-pages
-  - mv ../dist/* ./
-  - git add -a
+  - mv -f ../dist/* ./
+  - git add .
   - git commit -m "Deploy to GitHub Pages ${SHA}"
 #  - git push --force --quiet "https://${GITHUB_API_KEY}@github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages
 
