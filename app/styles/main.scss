@@ -220,6 +220,10 @@ main {
   padding: 0;
 }
 
+.navdrawer-container ul li:first-child {
+  border-top: 0;
+}
+
 .navdrawer-container ul li::before {
   content: none;
 }

@@ -51,6 +51,11 @@
   }
 })();
 
+/*!
+* surveyjs - Survey JavaScript library v0.9.8
+* (c) Andrew Telnov - http://surveyjs.org/
+* License: MIT (http://www.opensource.org/licenses/mit-license.php)
+*/
 var Survey;!function(e){var t=function(){function e(e,t){void 0===t&&(t=null),this.text=t,this.value=e}return e.setData=function(t,n)
 {t.length=0;for(var o=0;o<n.length;o++){var r=n[o],i=new e(null);"undefined"!=typeof r.value?(i.text=r.text,i.value=r.value):
 i.value=r,t.push(i)}},e.getData=function(e){for(var t=new Array,n=0;n<e.length;n++){var o=e[n];o.hasText?t.push({value:o.value,text:o.text}):
