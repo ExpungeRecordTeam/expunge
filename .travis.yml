@@ -1,4 +1,5 @@
 before_script:
+  - npm install
   - npm install -g gulp
   - npm rebuild node-sass
 
