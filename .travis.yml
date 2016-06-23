@@ -1,8 +1,7 @@
 before_script:
-  - npm install -g gulp
-  - npm rebuild node-sass
+  - npm install
 
-script: gulp
+script: npm run build
 
 after_script:
   - git clone "https://${GITHUB_API_KEY}@github.com/${TRAVIS_REPO_SLUG}.git" out

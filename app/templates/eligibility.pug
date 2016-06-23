@@ -1,0 +1,12 @@
+extends layout
+
+block activeLink
+  - selected = "/eligibility.html"
+
+block content
+  #surveyContainer.survey-question
+
+block scripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js")
+  script(src="https://code.jquery.com/jquery-2.2.4.min.js")
+  script(src="/scripts/eligibility.js")

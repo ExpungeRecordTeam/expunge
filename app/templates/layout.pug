@@ -1,0 +1,50 @@
+doctype 5
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="description" content="Find out if you're eligible to expunge your criminal record in Travis County, TX")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title Expunge Criminal Record
+    link(rel="manifest" href="manifest.json")
+    link(href="/favicon.ico" rel="icon" type="image/ico")
+    meta(name="mobile-web-app-capable" content="yes")
+    meta(name="application-name" content="Expunge Criminal Record - Travis County, TX")
+    link(rel="icon" sizes="32x32" href="images/favicon.ico")
+    meta(name="apple-mobile-web-app-capable" content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style" content="black")
+    meta(name="apple-mobile-web-app-title" content="Expunge Criminal Record - Travis County, TX")
+    link(rel="apple-touch-icon" href="images/touch/apple-touch-icon.png")
+    meta(name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png")
+    meta(name="msapplication-TileColor" content="#3372DF")
+    meta(name="theme-color" content="#3372DF")
+    link(rel="stylesheet" href="/styles/main.css")
+
+  body
+    img.beta-banner(src="/images/beta_banner.png")
+    header.app-bar.promote-layer
+      .app-bar-container
+        button.menu
+          img(src="images/hamburger.svg" alt="Menu")
+        h1.logo Expunge Criminal Record
+        section.app-bar-actions
+    nav.navdrawer-container.promote-layer
+      block activeLink
+        - selected = "/index.html"
+
+      - var menu = { "Home": "/index.html", "FAQ": "/faq.html", "Am I Eligible?": "/eligibility.html", "Forms & How to File": "/forms.html", "About": "/about.html" };
+
+      ul
+        each path, name in menu
+          li
+            if selected === path
+              a.active(href=path, title=name)
+                strong= name
+            else
+              a(href=path, title=name)
+                strong= name
+    main
+      block content
+
+    script(src="/scripts/main.js")
+    block scripts
