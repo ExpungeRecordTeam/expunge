@@ -21,7 +21,7 @@ var surveyJSON = {
         { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "otheropencases",title: "Do you have another open or pending criminal case against you?", visible: false },
         { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "deferredadjudication",title: "Did you receive a deferred adjudication?", visible: false },
         { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "morethanone",title: "Were you charged with more than one crime?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "wascrime",title: "Was your crime Murder", visible: false },
+        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "wascrime",title: "Was your crime one of: Murder, Kidnapping/unlawful restraint, Smuggling/Trafficking of persons, Sexual offenses including prostitution and pornography, Offenses against the family, Disorderly conduct, Any weapons charge, Anything that would require registration as a sex offender, Organized crime offences?", visible: false },
         { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "orderofdismissal",title: "Do you have an 'order of dismissal and discharge'?", visible: false }
        ]
      }
