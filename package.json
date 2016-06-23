@@ -8,7 +8,7 @@
     "gulp-csso": "^1.0.0",
     "gulp-imagemin": "^2.0.0",
     "gulp-load-plugins": "^0.8.0",
-    "gulp-minify-html": "0.1.5",
+    "gulp-htmlmin": "2.0.0",
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^2.3.1",
     "gulp-size": "^1.0.0",

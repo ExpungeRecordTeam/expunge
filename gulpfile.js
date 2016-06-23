@@ -6,6 +6,7 @@ var $ = require("gulp-load-plugins")();
 var del = require("del");
 var runSequence = require("run-sequence");
 var browserSync = require("browser-sync");
+var htmlmin = require('gulp-htmlmin');
 var reload = browserSync.reload;
 var pug = require("gulp-pug");
 
@@ -79,7 +80,7 @@ gulp.task("html", function () {
   return gulp.src("app/templates/*.pug")
     .pipe(pug())
     // Minify any HTML
-    .pipe($.minifyHtml())
+    .pipe(htmlmin({collapseWhitespace: true}))
     // Output files
     .pipe(gulp.dest("dist"))
     .pipe($.size({title: "html"}));
