@@ -1,66 +1,131 @@
 var debug = false;
 
 var redirectordebug = function(url) {
+  if (debug) {
+    console.log(url);
+  } else {
+    document.location.href=url;
+  }
+};
 
-  if (debug) { console.log(url); }
-  else { document.location.href=url; }
+var question = function(name, title, opts) {
+  opts = (opts || {});
 
-}
+  return {
+    type: "radiogroup",
+    choices: [ "Yes", "No" ],
+    isRequired: true,
+    name: name,
+    title: title,
+    visible: opts.visible || false
+  }
+};
+
+var triggerMatch = function(value, name, question) {
+  return {
+    type: "visible",
+    operator: "equal",
+    value: value,
+    name: name,
+    questions: [question]
+  }
+};
+
+var goFrom = function(from, to, question) {
+  return {
+    type: "visible",
+    operator: "equal",
+    value: question.answer,
+    name: from,
+    questions: [to]
+  };
+};
 
 var surveyJSON = {
   title: "The following questions will help determine your eligibility:",
-  pages: [
-
-    { name:"page1", questions: [
-        { type: "radiogroup", choices: [ "Before", "After" ], isRequired: true, name: "senatebillDate",title: "Did this incident happen before or after 9/1/2015?" },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "locationcounty",title: "Was this incident in Travis County?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "over17",title: "Were you 17 or older when this incident happened?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "releasedwithoutcharge",title: "Were you released without a charge?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "foundguilty",title: "Were you found guilty?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "dismissaloraquittal",title: "Did you receive a dismissal or an acquittal?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "otheropencases",title: "Do you have another open or pending criminal case against you?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "deferredadjudication",title: "Did you receive a deferred adjudication?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "morethanone",title: "Were you charged with more than one crime?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "wascrime",title: "Was your crime one of: Murder, Kidnapping/unlawful restraint, Smuggling/Trafficking of persons, Sexual offenses including prostitution and pornography, Offenses against the family, Disorderly conduct, Any weapons charge, Anything that would require registration as a sex offender, Organized crime offences?", visible: false },
-        { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "orderofdismissal",title: "Do you have an 'order of dismissal and discharge'?", visible: false }
-       ]
-     }
-
+  pages: [{
+    name: "eligibility-survey",
+    questions: [
+      question("terms", "We provide the information on this website as a public service. We do not intend this information to be legal advice. By providing this information, we are not acting as your lawyer. Do you agree to these terms?", {visible: true}),
+      question("senatebillDate", "Did this incident happen before 9/1/2015?"),
+      question("locationcounty", "Was this incident in Travis County?"),
+      question("over17", "Were you 17 or older when this incident happened?"),
+      question("releasedwithoutcharge", "Were you released without an indictment?"),
+      question("foundguilty", "Were you found guilty or did you take a plea of guilty?"),
+      question("dismissaloraquittal", "Did you receive a dismissal or an acquittal?"),
+      question("otheropencases", "Do you have another open or pending criminal case against you?"),
+      question("deferredadjudication", "Did you receive deferred adjudication or deferred prosecution?"),
+      question("morethanone", "Were you charged with more than one crime?"),
+      question("wascrime", "Was your crime one of: Murder, Kidnapping/unlawful restraint, Smuggling/Trafficking of persons, Sexual offenses including prostitution and pornography, Offenses against the family, Disorderly conduct, Any weapons charge, Anything that would require registration as a sex offender, Organized crime offences?"),
+      question("orderofdismissal", "Do you have an 'order of dismissal and discharge'?")
+    ]}
   ],
-
   triggers: [
-    { type: "visible", operator: "equal", value: "Before", name:"senatebillDate", questions: ["locationcounty"]},
-    { type: "visible", operator: "equal", value: "Yes", name: "locationcounty", questions: ["over17"]},
-    { type: "visible", operator: "equal", value: "Yes", name: "over17", questions: ["releasedwithoutcharge"]},
-    { type: "visible", operator: "equal", value: "No", name: "releasedwithoutcharge", questions: ["foundguilty"]},
-    { type: "visible", operator: "equal", value: "No", name: "foundguilty", questions: ["dismissaloraquittal"]},
-    { type: "visible", operator: "equal", value: "No", name: "dismissaloraquittal", questions: ["otheropencases"]},
-    { type: "visible", operator: "equal", value: "No", name: "otheropencases", questions: ["deferredadjudication"]},
-    { type: "visible", operator: "equal", value: "Yes", name: "deferredadjudication", questions: ["morethanone"]},
-    { type: "visible", operator: "equal", value: "No", name: "morethanone", questions: ["wascrime"]},
-    { type: "visible", operator: "equal", value: "No", name: "wascrime", questions: ["orderofdismissal"]}
+    goFrom("terms", "senatebillDate", {answer: "Yes"}),
+    goFrom("senatebillDate", "locationcounty", {answer: "Yes"}),
+    goFrom("locationcounty", "over17", {answer: "Yes"}),
+    goFrom("over17", "releasedwithoutcharge", {answer: "Yes"}),
+    goFrom("releasedwithoutcharge", "foundguilty", {answer: "No"}),
+    goFrom("foundguilty", "dismissaloraquittal", {answer: "No"}),
+    goFrom("dismissaloraquittal", "otheropencases", {answer: "No"}),
+    goFrom("otheropencases", "deferredadjudication", {answer: "No"}),
+    goFrom("deferredadjudication", "morethanone", {answer: "Yes"}),
+    goFrom("morethanone", "wascrime", {answer: "No"}),
+    goFrom("wascrime", "orderofdismissal", {answer: "No"}),
   ]
 }
 
 var survey = new Survey.Survey(surveyJSON, "surveyContainer");
 
-$( "input" ).change(function() {
+// Redirect logic
+$("#surveyContainer").on("change", "input[name='terms']", function() {
+  if ($(this).val() == "No") { redirectordebug("eligibility-rejected-terms.html") }
+});
 
-  if ($(this).val()) {
+$("#surveyContainer").on("change", "input[name='senatebillDate']", function() {
+  if ($(this).val() == "No") { redirectordebug("eligibility-sb.html") }
+});
 
-    if ($(this).attr("name") == 'senatebillDate' && $(this).val() == 'After') { redirectordebug('eligibility-sb.html'); }
-    if ($(this).attr("name") == 'locationcounty' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
-    if ($(this).attr("name") == 'over17' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
-    if ($(this).attr("name") == 'releasedwithoutcharge' && $(this).val() == 'Yes') { redirectordebug('eligibility-expunge.html'); }
-    if ($(this).attr("name") == 'foundguilty' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
-    if ($(this).attr("name") == 'dismissaloraquittal' && $(this).val() == 'Yes') { redirectordebug('eligibility-expunge.html'); }
-    if ($(this).attr("name") == 'otheropencases' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
-    if ($(this).attr("name") == 'deferredadjudication' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
-    if ($(this).attr("name") == 'morethanone' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
-    if ($(this).attr("name") == 'wascrime' && $(this).val() == 'Yes') { redirectordebug('eligibility-na.html'); }
-    if ($(this).attr("name") == 'orderofdismissal' && $(this).val() == 'Yes') { redirectordebug('eligibility-nda.html'); }
-    if ($(this).attr("name") == 'orderofdismissal' && $(this).val() == 'No') { redirectordebug('eligibility-na.html'); }
+$("#surveyContainer").on("change", "input[name='locationcounty']", function() {
+  if ($(this).val() == "No") { redirectordebug("eligibility-na.html") }
+});
 
-  }
+$("#surveyContainer").on("change", "input[name='over17']", function() {
+  if ($(this).val() == "No") { redirectordebug("eligibility-na.html") }
+});
 
+$("#surveyContainer").on("change", "input[name='releasedwithoutcharge']", function() {
+  if ($(this).val() == "Yes") { redirectordebug("eligibility-expunge.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='foundguilty']", function() {
+  if ($(this).val() == "Yes") { redirectordebug("eligibility-na.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='dismissaloraquittal']", function() {
+  if ($(this).val() == "Yes") { redirectordebug("eligibility-expunge.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='otheropencases']", function() {
+  if ($(this).val() == "Yes") { redirectordebug("eligibility-na.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='deferredadjudication']", function() {
+  if ($(this).val() == "No") { redirectordebug("eligibility-unknown.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='morethanone']", function() {
+  if ($(this).val() == "Yes") { redirectordebug("eligibility-na.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='wascrime']", function() {
+  if ($(this).val() == "Yes") { redirectordebug("eligibility-na.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='orderofdismissal']", function() {
+  if ($(this).val() == "Yes") { redirectordebug("eligibility-nda.html") }
+});
+
+$("#surveyContainer").on("change", "input[name='orderofdismissal']", function() {
+  if ($(this).val() == "No") { redirectordebug("eligibility-nda.html") }
 });
