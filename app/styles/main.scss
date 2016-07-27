@@ -430,11 +430,27 @@ main {
   left: 1em;
 }
 
+.faq-answer {
+  padding-top: 0.5em;
+}
+
+.sv_q_title {
+  padding: 1em 0;
+}
+
+.sv_qcbc {
+  margin-bottom: 0;
+}
+
+.sv_nav {
+  margin-top: 1em;
+}
+
 @media only screen and (max-width: 860px) {
   .step {
     width: 100%;
     height: auto;
-    padding-bottom: 1em;
+    padding-bottom: 3em;
   }
 }
 
