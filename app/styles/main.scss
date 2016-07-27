@@ -408,8 +408,9 @@ main {
   color: white;
   display: inline-block;
   padding: 0 1em;
+  position: relative;
   width: 23%;
-  height: 375px;
+  height: 390px;
   margin: 0.25em;
   vertical-align: top;
   text-align: left;
@@ -421,6 +422,12 @@ main {
   a {
     color: white;
   }
+}
+
+.step__cta {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
 }
 
 @media only screen and (max-width: 860px) {
